@@ -496,3 +496,241 @@
             </div>
 
         </section>
+        <!-- ==========================================
+             PAUSE MENU
+        =========================================== -->
+
+        <section id="pauseMenu" class="game-modal hidden">
+
+            <div class="modal-card">
+
+                <div class="modal-top-label">
+                    NEON CITY
+                </div>
+
+                <h2>GAME PAUSED</h2>
+
+                <p>Take a break. The city will wait.</p>
+
+
+                <button id="resumeBtn" class="modal-primary-btn">
+                    ▶ RESUME GAME
+                </button>
+
+
+                <button id="restartBtn" class="modal-secondary-btn">
+                    ↻ RESTART GAME
+                </button>
+
+
+                <button id="mainMenuBtn" class="modal-secondary-btn">
+                    ⌂ MAIN MENU
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==========================================
+             CONTROLS PANEL
+        =========================================== -->
+
+        <section id="controlsPanel" class="info-panel hidden">
+
+            <div class="info-panel-card">
+
+                <button class="panel-close-btn"
+                    data-close="controlsPanel"
+                    aria-label="Close controls">
+                    ×
+                </button>
+
+                <div class="panel-label">GAME GUIDE</div>
+
+                <h2>HOW TO PLAY</h2>
+
+                <p class="panel-description">
+                    Master the controls and start exploring.
+                </p>
+
+
+                <div class="controls-guide">
+
+                    <div class="guide-item">
+                        <div class="guide-icon">◉</div>
+                        <div>
+                            <strong>MOVE</strong>
+                            <span>Use the virtual joystick.</span>
+                        </div>
+                    </div>
+
+
+                    <div class="guide-item">
+                        <div class="guide-icon">◎</div>
+                        <div>
+                            <strong>LOOK AROUND</strong>
+                            <span>Drag the right side of the screen.</span>
+                        </div>
+                    </div>
+
+
+                    <div class="guide-item">
+                        <div class="guide-icon">↑</div>
+                        <div>
+                            <strong>JUMP</strong>
+                            <span>Tap the jump button.</span>
+                        </div>
+                    </div>
+
+
+                    <div class="guide-item">
+                        <div class="guide-icon">⚡</div>
+                        <div>
+                            <strong>RUN</strong>
+                            <span>Hold the run button.</span>
+                        </div>
+                    </div>
+
+
+                    <div class="guide-item">
+                        <div class="guide-icon">E</div>
+                        <div>
+                            <strong>INTERACT</strong>
+                            <span>Interact with nearby objects.</span>
+                        </div>
+                    </div>
+
+
+                    <div class="guide-item">
+                        <div class="guide-icon">🚗</div>
+                        <div>
+                            <strong>VEHICLES</strong>
+                            <span>Enter or exit available vehicles.</span>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <button class="panel-done-btn"
+                    data-close="controlsPanel">
+                    GOT IT
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==========================================
+             ABOUT PANEL
+        =========================================== -->
+
+        <section id="aboutPanel" class="info-panel hidden">
+
+            <div class="info-panel-card">
+
+                <button class="panel-close-btn"
+                    data-close="aboutPanel"
+                    aria-label="Close about panel">
+                    ×
+                </button>
+
+                <div class="panel-label">ABOUT THE GAME</div>
+
+                <h2>NEON CITY</h2>
+
+                <p class="panel-description">
+                    A world waiting to be explored.
+                </p>
+
+
+                <div class="about-logo">
+                    N
+                </div>
+
+
+                <p class="about-description">
+                    Welcome to NEON CITY, a neon-lit open-world
+                    experience where you can explore streets,
+                    discover locations, drive vehicles and
+                    experience the city at your own pace.
+                </p>
+
+
+                <div class="about-features">
+
+                    <div>
+                        <strong>01</strong>
+                        <span>OPEN WORLD</span>
+                    </div>
+
+                    <div>
+                        <strong>02</strong>
+                        <span>FREE EXPLORATION</span>
+                    </div>
+
+                    <div>
+                        <strong>03</strong>
+                        <span>MOBILE CONTROLS</span>
+                    </div>
+
+                </div>
+
+
+                <button class="panel-done-btn"
+                    data-close="aboutPanel">
+                    CLOSE
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==========================================
+             GAME OVER / MISSION COMPLETE PANEL
+        =========================================== -->
+
+        <section id="gameOverPanel" class="game-modal hidden">
+
+            <div class="modal-card">
+
+                <div class="modal-top-label">
+                    NEON CITY
+                </div>
+
+                <h2 id="gameOverTitle">MISSION COMPLETE</h2>
+
+                <p id="gameOverDescription">
+                    Well done! You completed the mission.
+                </p>
+
+                <button id="playAgainBtn" class="modal-primary-btn">
+                    PLAY AGAIN
+                </button>
+
+                <button class="modal-secondary-btn"
+                    data-close="gameOverPanel">
+                    CONTINUE EXPLORING
+                </button>
+
+            </div>
+
+        </section>
+
+
+    </div>
+
+
+    <!-- ==========================================
+         JAVASCRIPT
+    =========================================== -->
+
+    <script type="module" src="script.js"></script>
+
+</body>
+
+</html>
+
