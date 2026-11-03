@@ -1,0 +1,1109 @@
+/* =========================================
+   NEON CITY - OPEN WORLD GAME
+   PREMIUM CYBERPUNK DESIGN
+========================================= */
+
+/* GOOGLE FONT FALLBACK */
+:root {
+    --bg: #050510;
+    --panel: rgba(9, 12, 29, 0.88);
+    --cyan: #00f5ff;
+    --purple: #a855f7;
+    --pink: #ff2bd6;
+    --white: #f4f7ff;
+    --muted: #8b92aa;
+    --border: rgba(0, 245, 255, 0.35);
+    --glow: 0 0 15px rgba(0, 245, 255, 0.35);
+}
+
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: var(--bg);
+    color: var(--white);
+    font-family: 'Rajdhani', sans-serif;
+    user-select: none;
+}
+
+button {
+    font-family: 'Orbitron', sans-serif;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.hidden {
+    display: none !important;
+}
+
+
+/* =========================================
+   LOADING SCREEN
+========================================= */
+
+#loadingScreen {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background:
+        radial-gradient(circle at center,
+        #17113a 0%,
+        #080817 45%,
+        #020208 100%);
+}
+
+.loading-content {
+    width: min(400px, 85%);
+    text-align: center;
+}
+
+.loading-content h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(36px, 8vw, 60px);
+    letter-spacing: 5px;
+    text-shadow: 0 0 20px var(--cyan);
+    margin-bottom: 15px;
+}
+
+.loading-content h1 span {
+    color: var(--cyan);
+}
+
+.loading-content p {
+    color: var(--purple);
+    font-size: 13px;
+    letter-spacing: 5px;
+    margin-bottom: 25px;
+}
+
+.loading-bar {
+    width: 100%;
+    height: 5px;
+    background: #1a1b34;
+    overflow: hidden;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+#loadingProgress {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, var(--purple), var(--cyan));
+    box-shadow: 0 0 15px var(--cyan);
+    transition: width 0.3s ease;
+}
+
+#loadingText {
+    color: var(--muted);
+    font-size: 13px;
+    letter-spacing: 2px;
+}
+
+
+/* =========================================
+   MAIN MENU
+========================================= */
+
+.screen {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background:
+        radial-gradient(ellipse at 70% 40%,
+        rgba(104, 35, 180, 0.25),
+        transparent 55%),
+        radial-gradient(ellipse at 20% 80%,
+        rgba(0, 245, 255, 0.12),
+        transparent 50%),
+        linear-gradient(130deg, #050510, #101027, #050510);
+}
+
+.menu-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(
+            90deg,
+            rgba(3, 3, 14, 0.95),
+            rgba(3, 3, 14, 0.35)
+        );
+}
+
+.menu-content {
+    position: relative;
+    z-index: 2;
+    width: 90%;
+    max-width: 1100px;
+    padding: 30px;
+}
+
+.game-logo {
+    margin-bottom: 65px;
+    animation: fadeUp 1s ease;
+}
+
+.game-logo h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(55px, 10vw, 115px);
+    font-weight: 800;
+    letter-spacing: 7px;
+    line-height: 1;
+    text-shadow:
+        0 0 10px rgba(255,255,255,0.2),
+        0 0 25px var(--cyan);
+}
+
+.game-logo h1 span {
+    color: var(--cyan);
+}
+
+.game-logo p {
+    margin-top: 15px;
+    color: var(--pink);
+    letter-spacing: 9px;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.menu-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 260px;
+}
+
+.main-btn,
+.menu-btn {
+    width: 100%;
+    padding: 17px 20px;
+    font-size: 12px;
+    letter-spacing: 2px;
+    font-weight: 700;
+    transition: 0.3s ease;
+}
+
+.main-btn {
+    color: #020510;
+    background: var(--cyan);
+    box-shadow:
+        0 0 12px var(--cyan),
+        0 0 30px rgba(0,245,255,0.3);
+    clip-path: polygon(
+        0 0,
+        94% 0,
+        100% 30%,
+        100% 100%,
+        6% 100%,
+        0 70%
+    );
+}
+
+.main-btn:hover {
+    background: white;
+    transform: translateY(-3px);
+    box-shadow: 0 0 30px var(--cyan);
+}
+
+.menu-btn {
+    color: var(--white);
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(0,245,255,0.3);
+}
+
+.menu-btn:hover {
+    color: var(--cyan);
+    background: rgba(0,245,255,0.1);
+    border-color: var(--cyan);
+    transform: translateX(5px);
+}
+
+.menu-footer {
+    position: fixed;
+    bottom: 25px;
+    left: 30px;
+    right: 30px;
+    display: flex;
+    justify-content: space-between;
+    color: #777d98;
+    font-size: 11px;
+    letter-spacing: 3px;
+}
+
+
+/* =========================================
+   POPUP WINDOWS
+========================================= */
+
+.popup {
+    position: fixed;
+    inset: 0;
+    z-index: 500;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0,0,0,0.8);
+    backdrop-filter: blur(10px);
+}
+
+.popup-content {
+    position: relative;
+    width: min(450px, 90%);
+    padding: 35px;
+    background: #0c1025;
+    border: 1px solid var(--cyan);
+    box-shadow: 0 0 30px rgba(0,245,255,0.2);
+    animation: popupIn 0.3s ease;
+}
+
+.popup-content h2 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 19px;
+    color: var(--cyan);
+    margin-bottom: 25px;
+    letter-spacing: 2px;
+}
+
+.popup-content > p {
+    color: #aeb5ca;
+    line-height: 1.7;
+    margin-bottom: 15px;
+    font-size: 16px;
+}
+
+.highlight-text {
+    color: var(--pink) !important;
+    font-family: 'Orbitron', sans-serif;
+    letter-spacing: 2px;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 27px;
+    color: var(--white);
+    background: transparent;
+}
+
+.close-btn:hover {
+    color: var(--pink);
+}
+
+.control-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.control-row span {
+    color: var(--cyan);
+    font-weight: 700;
+    font-size: 13px;
+}
+
+.control-row p {
+    color: #b0b5ca;
+    font-size: 15px;
+}
+
+
+/* =========================================
+   GAME WORLD
+========================================= */
+
+#gameContainer {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    background: #050510;
+}
+
+#gameCanvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+#gameCanvas canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+
+/* =========================================
+   TOP HUD
+========================================= */
+
+.top-hud {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 20;
+    padding: 20px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    background: linear-gradient(
+        180deg,
+        rgba(2,3,15,0.85),
+        transparent
+    );
+    pointer-events: none;
+}
+
+.player-info {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.player-avatar {
+    width: 45px;
+    height: 45px;
+    display: grid;
+    place-items: center;
+    color: var(--cyan);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 14px;
+    border: 1px solid var(--cyan);
+    background: rgba(0,245,255,0.1);
+    box-shadow: var(--glow);
+}
+
+.player-info h3 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 11px;
+    letter-spacing: 2px;
+}
+
+.player-info p {
+    font-size: 12px;
+    color: var(--cyan);
+    margin-top: 4px;
+}
+
+.city-info {
+    text-align: center;
+}
+
+.city-info h2 {
+    font-family: 'Orbitron', sans-serif;
+    color: var(--cyan);
+    font-size: 18px;
+    letter-spacing: 4px;
+    text-shadow: 0 0 15px var(--cyan);
+}
+
+.city-info p {
+    color: #b7bfd5;
+    font-size: 13px;
+    margin-top: 5px;
+    letter-spacing: 2px;
+}
+
+.money-info {
+    text-align: right;
+}
+
+.money-info span {
+    color: var(--muted);
+    font-size: 10px;
+    letter-spacing: 2px;
+}
+
+.money-info h2 {
+    color: #4dff9d;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 19px;
+    margin-top: 5px;
+}
+
+
+/* =========================================
+   HEALTH & STAMINA
+========================================= */
+
+.status-panel {
+    position: absolute;
+    z-index: 20;
+    top: 105px;
+    left: 30px;
+    width: 210px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 15px;
+    background: var(--panel);
+    border-left: 2px solid var(--cyan);
+    backdrop-filter: blur(10px);
+    pointer-events: none;
+}
+
+.status-item {
+    display: grid;
+    grid-template-columns: 55px 1fr 32px;
+    gap: 7px;
+    align-items: center;
+}
+
+.status-item span {
+    font-size: 10px;
+    letter-spacing: 1px;
+    color: #c3c9da;
+}
+
+.status-item strong {
+    font-size: 10px;
+    color: white;
+    text-align: right;
+}
+
+.status-bar {
+    height: 6px;
+    background: #292d44;
+    overflow: hidden;
+    border-radius: 5px;
+}
+
+.health-fill,
+.stamina-fill {
+    height: 100%;
+    width: 100%;
+    transition: width 0.2s;
+}
+
+.health-fill {
+    background: #ff376f;
+    box-shadow: 0 0 10px #ff376f;
+}
+
+.stamina-fill {
+    background: var(--cyan);
+    box-shadow: 0 0 10px var(--cyan);
+}
+
+
+/* =========================================
+   MINIMAP
+========================================= */
+
+.minimap-container {
+    position: absolute;
+    z-index: 20;
+    right: 30px;
+    top: 105px;
+    width: 210px;
+    padding: 10px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    box-shadow: var(--glow);
+    pointer-events: none;
+}
+
+.minimap-header {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 9px;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+}
+
+.minimap-header span:first-child {
+    color: var(--cyan);
+}
+
+.minimap-header span:last-child {
+    color: white;
+}
+
+#minimap {
+    width: 100%;
+    aspect-ratio: 1;
+    display: block;
+    background: #090f20;
+    border: 1px solid rgba(0,245,255,0.2);
+}
+
+.map-footer {
+    color: var(--cyan);
+    font-size: 9px;
+    margin-top: 9px;
+    letter-spacing: 1px;
+}
+
+
+/* =========================================
+   MISSION PANEL
+========================================= */
+
+.mission-panel {
+    position: absolute;
+    z-index: 20;
+    left: 30px;
+    bottom: 70px;
+    width: 270px;
+    padding: 18px;
+    background: var(--panel);
+    border-left: 3px solid var(--pink);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 0 20px rgba(255,43,214,0.1);
+    pointer-events: none;
+}
+
+.mission-heading {
+    font-size: 10px;
+    color: var(--pink);
+    letter-spacing: 2px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 13px;
+}
+
+.mission-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--pink);
+    box-shadow: 0 0 10px var(--pink);
+    animation: blink 1.5s infinite;
+}
+
+.mission-panel h3 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 12px;
+    margin-bottom: 8px;
+    color: white;
+}
+
+.mission-panel p {
+    font-size: 14px;
+    line-height: 1.5;
+    color: #aeb5ca;
+}
+
+.mission-reward {
+    font-size: 11px;
+    color: #8c95aa;
+    margin-top: 15px;
+}
+
+.mission-reward strong {
+    color: #4dff9d;
+    font-family: 'Orbitron', sans-serif;
+}
+
+
+/* =========================================
+   INTERACTION MESSAGE
+========================================= */
+
+.interaction-message {
+    position: absolute;
+    z-index: 30;
+    left: 50%;
+    bottom: 20%;
+    transform: translateX(-50%);
+    padding: 12px 22px;
+    color: var(--cyan);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 11px;
+    letter-spacing: 2px;
+    background: rgba(5,10,25,0.9);
+    border: 1px solid var(--cyan);
+    box-shadow: 0 0 20px rgba(0,245,255,0.3);
+    pointer-events: none;
+}
+
+
+/* =========================================
+   VEHICLE HUD
+========================================= */
+
+.vehicle-hud {
+    position: absolute;
+    z-index: 20;
+    right: 30px;
+    bottom: 55px;
+    width: 200px;
+    padding: 15px;
+    text-align: center;
+    background: var(--panel);
+    border: 1px solid var(--cyan);
+    box-shadow: var(--glow);
+    pointer-events: none;
+}
+
+.vehicle-name {
+    color: var(--cyan);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 11px;
+    letter-spacing: 2px;
+}
+
+.speed-container {
+    margin: 12px 0;
+}
+
+.speed-container span {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 45px;
+    font-weight: 800;
+    text-shadow: 0 0 15px var(--cyan);
+}
+
+.speed-container small {
+    color: var(--cyan);
+    font-size: 10px;
+}
+
+.vehicle-hint {
+    color: var(--muted);
+    font-size: 9px;
+    letter-spacing: 1px;
+}
+
+
+/* =========================================
+   CROSSHAIR
+========================================= */
+
+.crosshair {
+    position: absolute;
+    z-index: 25;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--cyan);
+    font-size: 25px;
+    font-family: Arial, sans-serif;
+    text-shadow: 0 0 10px var(--cyan);
+    pointer-events: none;
+}
+
+
+/* =========================================
+   NOTIFICATIONS
+========================================= */
+
+.notification {
+    position: absolute;
+    z-index: 50;
+    top: 125px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 12px 25px;
+    background: rgba(5,10,25,0.95);
+    border: 1px solid var(--cyan);
+    box-shadow: 0 0 20px rgba(0,245,255,0.2);
+    color: var(--cyan);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-align: center;
+    pointer-events: none;
+}
+
+
+/* =========================================
+   PAUSE SCREEN
+========================================= */
+
+.pause-screen {
+    position: absolute;
+    inset: 0;
+    z-index: 200;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(2,3,12,0.88);
+    backdrop-filter: blur(12px);
+}
+
+.pause-content {
+    width: 280px;
+    text-align: center;
+}
+
+.pause-content h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 32px;
+    margin-bottom: 35px;
+}
+
+.pause-content h1 span {
+    color: var(--cyan);
+}
+
+.pause-content button {
+    margin-bottom: 12px;
+}
+
+
+/* =========================================
+   GAME OVER
+========================================= */
+
+.game-over-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+}
+
+.game-over-content h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(35px, 8vw, 65px);
+    color: #ff376f;
+    text-shadow: 0 0 25px #ff376f;
+    margin-bottom: 15px;
+}
+
+.game-over-content p {
+    color: var(--muted);
+    margin-bottom: 30px;
+}
+
+.game-over-content button {
+    width: 230px;
+}
+
+
+/* =========================================
+   BOTTOM HUD
+========================================= */
+
+.bottom-hud {
+    position: absolute;
+    z-index: 20;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    min-height: 38px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    padding: 10px;
+    color: #a5abc0;
+    background: rgba(3,4,15,0.85);
+    border-top: 1px solid rgba(0,245,255,0.15);
+    font-size: 10px;
+    letter-spacing: 1px;
+    pointer-events: none;
+}
+
+
+/* =========================================
+   MOBILE GAME CONTROLS
+========================================= */
+
+.mobile-controls {
+    position: absolute;
+    z-index: 60;
+    left: 0;
+    right: 0;
+    bottom: 60px;
+    display: none;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 15px 20px;
+    pointer-events: none;
+}
+
+.movement-controls,
+.action-controls {
+    pointer-events: auto;
+}
+
+.movement-controls button,
+.action-controls button {
+    width: 48px;
+    height: 48px;
+    color: var(--cyan);
+    background: rgba(5,10,30,0.75);
+    border: 1px solid var(--cyan);
+    border-radius: 12px;
+    font-size: 17px;
+    box-shadow: 0 0 12px rgba(0,245,255,0.2);
+    touch-action: none;
+}
+
+.movement-controls button:active,
+.action-controls button:active {
+    background: var(--cyan);
+    color: #050510;
+}
+
+.movement-controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.movement-bottom {
+    display: flex;
+    gap: 5px;
+}
+
+.action-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.action-controls button {
+    width: 65px;
+    height: 43px;
+    font-size: 10px;
+}
+
+
+/* =========================================
+   ANIMATIONS
+========================================= */
+
+@keyframes blink {
+    0%, 100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.3;
+    }
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes popupIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+
+/* =========================================
+   RESPONSIVE DESIGN
+========================================= */
+
+@media (max-width: 768px) {
+
+    .menu-content {
+        padding: 15px;
+    }
+
+    .game-logo {
+        margin-bottom: 45px;
+    }
+
+    .game-logo h1 {
+        letter-spacing: 3px;
+    }
+
+    .game-logo p {
+        letter-spacing: 4px;
+        font-size: 10px;
+    }
+
+    .menu-buttons {
+        width: 220px;
+    }
+
+    .menu-footer {
+        left: 15px;
+        right: 15px;
+        font-size: 8px;
+        letter-spacing: 1px;
+    }
+
+    .top-hud {
+        padding: 12px;
+    }
+
+    .player-avatar {
+        width: 35px;
+        height: 35px;
+        font-size: 11px;
+    }
+
+    .player-info h3 {
+        font-size: 9px;
+    }
+
+    .player-info p {
+        font-size: 10px;
+    }
+
+    .city-info h2 {
+        font-size: 12px;
+        letter-spacing: 2px;
+    }
+
+    .city-info p {
+        font-size: 10px;
+    }
+
+    .money-info span {
+        font-size: 8px;
+    }
+
+    .money-info h2 {
+        font-size: 12px;
+    }
+
+    .status-panel {
+        top: 75px;
+        left: 12px;
+        width: 175px;
+        padding: 10px;
+    }
+
+    .minimap-container {
+        top: 75px;
+        right: 12px;
+        width: 145px;
+        padding: 7px;
+    }
+
+    .mission-panel {
+        left: 12px;
+        bottom: 65px;
+        width: 220px;
+        padding: 12px;
+    }
+
+    .mission-panel h3 {
+        font-size: 10px;
+    }
+
+    .mission-panel p {
+        font-size: 12px;
+    }
+
+    .vehicle-hud {
+        right: 12px;
+        bottom: 65px;
+        width: 145px;
+    }
+
+    .speed-container span {
+        font-size: 32px;
+    }
+
+    .bottom-hud {
+        display: none;
+    }
+
+    .mobile-controls {
+        display: flex;
+    }
+
+    .interaction-message {
+        bottom: 34%;
+        font-size: 9px;
+    }
+
+    .notification {
+        top: 185px;
+        width: 85%;
+        font-size: 9px;
+    }
+}
+
+@media (max-width: 380px) {
+
+    .minimap-container {
+        width: 125px;
+    }
+
+    .status-panel {
+        width: 155px;
+    }
+
+    .mission-panel {
+        width: 185px;
+    }
+
+    .mission-panel p {
+        font-size: 11px;
+    }
+
+    .mobile-controls {
+        padding: 10px;
+    }
+}
+
+
+/* =========================================
+   LANDSCAPE MOBILE
+========================================= */
+
+@media (max-height: 500px) and (max-width: 900px) {
+
+    .top-hud {
+        padding: 8px 15px;
+    }
+
+    .status-panel {
+        top: 65px;
+    }
+
+    .minimap-container {
+        top: 65px;
+        width: 115px;
+    }
+
+    .mission-panel {
+        bottom: 12px;
+        width: 190px;
+        padding: 10px;
+    }
+
+    .mobile-controls {
+        bottom: 10px;
+    }
+
+    .interaction-message {
+        bottom: 25%;
+    }
+}
