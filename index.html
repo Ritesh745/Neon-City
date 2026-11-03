@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+
+    <meta name="theme-color" content="#070812">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+    <title>NEON CITY | Open World</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Three.js import map -->
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"
+        }
+    }
+    </script>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- ==========================================
+         GAME ROOT
+    =========================================== -->
+
+    <div id="gameRoot">
+
+        <!-- 3D GAME CANVAS -->
+
+        <main id="gameContainer">
+
+            <canvas id="gameCanvas"></canvas>
+
+            <!-- GAME OVERLAY -->
+
+            <div id="gameOverlay">
+
+                <!-- TOP LEFT: GAME BRAND -->
+
+                <div class="game-brand">
+
+                    <div class="brand-icon">N</div>
+
+                    <div class="brand-text">
+                        <h1>NEON CITY</h1>
+                        <span>OPEN WORLD EXPERIENCE</span>
+                    </div>
+
+                </div>
+
+
+                <!-- TOP RIGHT: GAME CLOCK AND LOCATION -->
+
+                <div class="top-right-info">
+
+                    <div class="location-info">
+                        <span class="info-label">CURRENT LOCATION</span>
+                        <strong id="locationName">NEON DISTRICT</strong>
+                    </div>
+
+                    <div class="game-clock">
+                        <span class="clock-icon">◷</span>
+                        <strong id="gameTime">08:00 PM</strong>
+                    </div>
+
+                </div>
+
+
+                <!-- PLAYER STATUS -->
+
+                <section class="player-status">
+
+                    <!-- HEALTH -->
+
+                    <div class="status-card">
+
+                        <div class="status-heading">
+                            <span class="status-icon health-icon">♥</span>
+                            <span>HEALTH</span>
+                            <strong id="healthValue">100%</strong>
+                        </div>
+
+                        <div class="status-track">
+                            <div id="healthBar" class="status-fill health-fill"
+                                style="width: 100%;">
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <!-- STAMINA -->
+
+                    <div class="status-card">
+
+                        <div class="status-heading">
+                            <span class="status-icon stamina-icon">⚡</span>
+                            <span>STAMINA</span>
+                            <strong id="staminaValue">100%</strong>
+                        </div>
+
+                        <div class="status-track">
+                            <div id="staminaBar" class="status-fill stamina-fill"
+                                style="width: 100%;">
+                            </div>
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- PLAYER MONEY -->
+
+                <div class="money-display">
+
+                    <span class="money-symbol">$</span>
+
+                    <div>
+                        <small>YOUR CASH</small>
+                        <strong id="playerMoney">$2,500</strong>
+                    </div>
+
+                </div>
+
+
+                <!-- MISSION DISPLAY -->
+
+                <section class="mission-panel">
+
+                    <div class="mission-header">
+                        <span class="mission-dot"></span>
+                        <span>ACTIVE MISSION</span>
+                    </div>
+
+                    <h2 id="missionTitle">WELCOME TO NEON CITY</h2>
+
+                    <p id="missionDescription">
+                        Explore the city and discover your first mission.
+                    </p>
+
+                    <div class="mission-footer">
+                        <span>MISSION STATUS</span>
+                        <span class="mission-active">IN PROGRESS</span>
+                    </div>
+
+                </section>
+
+
+                <!-- MINIMAP -->
+
+                <section class="minimap-container">
+
+                    <div class="minimap-heading">
+                        <span>MAP</span>
+                        <span class="map-live-dot"></span>
+                    </div>
+
+                    <canvas id="minimap" width="220" height="220"></canvas>
+
+                    <div class="map-coordinates">
+                        <span>NEON DISTRICT</span>
+                        <span>LIVE</span>
+                    </div>
+
+                </section>
+
+
+                <!-- VEHICLE HUD -->
+
+                <section id="vehicleHUD" class="vehicle-hud hidden">
+
+                    <div class="vehicle-heading">
+                        <span>VEHICLE MODE</span>
+                        <span class="vehicle-indicator">ACTIVE</span>
+                    </div>
+
+                    <div class="vehicle-speed">
+                        <strong id="speedValue">000</strong>
+                        <span>KM/H</span>
+                    </div>
+
+                    <div class="vehicle-bottom">
+                        <span>ENGINE</span>
+                        <span>ON</span>
+                    </div>
+
+                </section>
+
+
+                <!-- INTERACTION MESSAGE -->
+
+                <div id="interactionMessage" class="interaction-message hidden">
+                    <span class="interaction-key">E</span>
+                    <span>PRESS TO INTERACT</span>
+                </div>
+
+
+                <!-- NOTIFICATION -->
+
+                <div id="notification" class="notification hidden">
+
+                    <span class="notification-icon">✦</span>
+
+                    <div>
+                        <strong>NEON CITY</strong>
+                        <p id="notificationText">Welcome to the city!</p>
+                    </div>
+
+                </div>
+
+
+                <!-- PAUSE BUTTON -->
+
+                <button id="mobilePauseBtn" class="mobile-pause-btn"
+                    aria-label="Pause game">
+                    Ⅱ
+                </button>
+
+
+                <!-- ==================================
+                     MOBILE GAME CONTROLS
+                =================================== -->
+
+                <div id="mobileControls" class="mobile-controls">
+
+                    <!-- LEFT SIDE: JOYSTICK -->
+
+                    <div class="joystick-area">
+
+                        <div id="joystick" class="joystick">
+
+                            <div class="joystick-ring"></div>
+
+                            <div id="joystickKnob" class="joystick-knob">
+                                <span></span>
+                            </div>
+
+                        </div>
+
+                        <span class="joystick-label">MOVE</span>
+
+                    </div>
+
+
+                    <!-- RIGHT SIDE: CAMERA CONTROL -->
+
+                    <div id="cameraTouchArea" class="camera-touch-area">
+
+                        <div class="camera-hint">
+                            DRAG TO LOOK AROUND
+                        </div>
+
+                    </div>
+
+
+                    <!-- ACTION BUTTONS -->
+
+                    <div class="action-controls">
+
+                        <button class="action-btn interact-btn"
+                            data-action="interact"
+                            aria-label="Interact">
+
+                            <span class="action-symbol">E</span>
+                            <small>INTERACT</small>
+
+                        </button>
+
+
+                        <button class="action-btn jump-btn"
+                            data-action="jump"
+                            aria-label="Jump">
+
+                            <span class="action-symbol">↑</span>
+                            <small>JUMP</small>
+
+                        </button>
+
+
+                        <button class="action-btn run-btn"
+                            data-action="run"
+                            aria-label="Run">
+
+                            <span class="action-symbol">⚡</span>
+                            <small>RUN</small>
+
+                        </button>
+
+
+                        <button class="action-btn vehicle-btn"
+                            data-action="vehicle"
+                            aria-label="Enter or exit vehicle">
+
+                            <span class="action-symbol">🚗</span>
+                            <small>VEHICLE</small>
+
+                        </button>
+
+                    </div>
+
+
+                    <!-- VEHICLE CONTROLS -->
+
+                    <div id="vehicleControls" class="vehicle-controls hidden">
+
+                        <button class="drive-btn"
+                            data-key="a"
+                            aria-label="Steer left">
+                            ◀
+                        </button>
+
+                        <button class="drive-btn"
+                            data-key="d"
+                            aria-label="Steer right">
+                            ▶
+                        </button>
+
+                        <button class="drive-btn brake-btn"
+                            data-action="brake"
+                            aria-label="Brake">
+                            BRAKE
+                        </button>
+
+                        <button class="drive-btn accelerate-btn"
+                            data-action="accelerate"
+                            aria-label="Accelerate">
+                            ▲
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </main>
+        <!-- ==========================================
+             LOADING SCREEN
+        =========================================== -->
+
+        <section id="loadingScreen" class="loading-screen">
+
+            <div class="loading-content">
+
+                <div class="loading-logo">
+                    <span>N</span>
+                </div>
+
+                <h1>NEON CITY</h1>
+
+                <p class="loading-subtitle">
+                    THE CITY NEVER SLEEPS
+                </p>
+
+                <div class="loading-progress-container">
+
+                    <div class="loading-progress-track">
+                        <div id="loadingProgress"
+                            class="loading-progress-fill">
+                        </div>
+                    </div>
+
+                    <div class="loading-details">
+                        <span id="loadingText">INITIALIZING CITY...</span>
+                        <span id="loadingPercentage">0%</span>
+                    </div>
+
+                </div>
+
+                <p class="loading-tip">
+                    TIP: Explore the city to discover hidden locations.
+                </p>
+
+            </div>
+
+            <div class="loading-decoration decoration-one"></div>
+            <div class="loading-decoration decoration-two"></div>
+
+        </section>
+
+
+        <!-- ==========================================
+             MAIN MENU
+        =========================================== -->
+
+        <section id="mainMenu" class="main-menu">
+
+            <div class="menu-background">
+
+                <div class="menu-grid"></div>
+
+                <div class="menu-glow menu-glow-one"></div>
+                <div class="menu-glow menu-glow-two"></div>
+
+            </div>
+
+
+            <div class="menu-content">
+
+                <header class="menu-header">
+
+                    <div class="menu-logo">
+                        <span>N</span>
+                    </div>
+
+                    <div class="menu-brand">
+                        <span class="menu-brand-title">NEON CITY</span>
+                        <span class="menu-brand-subtitle">
+                            OPEN WORLD EXPERIENCE
+                        </span>
+                    </div>
+
+                    <div class="menu-version">
+                        <span>GAME VERSION</span>
+                        <strong>1.0.0</strong>
+                    </div>
+
+                </header>
+
+
+                <div class="menu-hero">
+
+                    <div class="hero-small-label">
+                        <span></span>
+                        WELCOME TO THE FUTURE
+                    </div>
+
+                    <h1>
+                        THE CITY<br>
+                        <span>IS YOURS.</span>
+                    </h1>
+
+                    <p>
+                        Explore a living city. Discover new places.
+                        Create your own story.
+                    </p>
+
+                </div>
+
+
+                <div class="menu-actions">
+
+                    <button id="startGameBtn" class="primary-menu-btn">
+
+                        <span class="menu-btn-icon">▶</span>
+
+                        <span>START GAME</span>
+
+                        <span class="menu-btn-arrow">→</span>
+
+                    </button>
+
+
+                    <button id="controlsBtn" class="secondary-menu-btn">
+                        <span>⌘</span>
+                        CONTROLS
+                    </button>
+
+
+                    <button id="aboutBtn" class="secondary-menu-btn">
+                        <span>ⓘ</span>
+                        ABOUT
+                    </button>
+
+                </div>
+
+
+                <footer class="menu-footer">
+
+                    <div class="footer-status">
+                        <span class="online-dot"></span>
+                        CITY SYSTEM ONLINE
+                    </div>
+
+                    <span>DESIGNED FOR MOBILE</span>
+
+                </footer>
+
+            </div>
+
+        </section>
