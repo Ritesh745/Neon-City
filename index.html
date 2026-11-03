@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEON CITY | Open World</title>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Three.js -->
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"
+        }
+    }
+    </script>
+</head>
+
+<body>
+
+    <!-- LOADING SCREEN -->
+    <div id="loadingScreen">
+        <div class="loading-content">
+            <h1>NEON<span>CITY</span></h1>
+            <p>INITIALIZING OPEN WORLD...</p>
+            <div class="loading-bar">
+                <div id="loadingProgress"></div>
+            </div>
+            <span id="loadingText">Loading environment 0%</span>
+        </div>
+    </div>
+
+
+    <!-- MAIN MENU -->
+    <div id="mainMenu" class="screen">
+        <div class="menu-overlay"></div>
+
+        <div class="menu-content">
+            <div class="game-logo">
+                <h1>NEON<span>CITY</span></h1>
+                <p>THE CITY NEVER SLEEPS</p>
+            </div>
+
+            <div class="menu-buttons">
+                <button id="startGameBtn" class="main-btn">
+                    START GAME
+                </button>
+
+                <button id="controlsBtn" class="menu-btn">
+                    CONTROLS
+                </button>
+
+                <button id="aboutBtn" class="menu-btn">
+                    ABOUT GAME
+                </button>
+            </div>
+
+            <div class="menu-footer">
+                <span>OPEN WORLD EXPERIENCE</span>
+                <span>VERSION 1.0</span>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- CONTROLS POPUP -->
+    <div id="controlsPanel" class="popup hidden">
+        <div class="popup-content">
+            <button class="close-btn" data-close="controlsPanel">×</button>
+
+            <h2>GAME CONTROLS</h2>
+
+            <div class="control-row">
+                <span>W A S D</span>
+                <p>Move character</p>
+            </div>
+
+            <div class="control-row">
+                <span>MOUSE</span>
+                <p>Rotate camera</p>
+            </div>
+
+            <div class="control-row">
+                <span>SHIFT</span>
+                <p>Run</p>
+            </div>
+
+            <div class="control-row">
+                <span>SPACE</span>
+                <p>Jump</p>
+            </div>
+
+            <div class="control-row">
+                <span>E</span>
+                <p>Enter / Exit vehicle</p>
+            </div>
+
+            <div class="control-row">
+                <span>F</span>
+                <p>Interact</p>
+            </div>
+
+            <div class="control-row">
+                <span>ESC</span>
+                <p>Pause game</p>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ABOUT POPUP -->
+    <div id="aboutPanel" class="popup hidden">
+        <div class="popup-content">
+            <button class="close-btn" data-close="aboutPanel">×</button>
+
+            <h2>ABOUT NEON CITY</h2>
+
+            <p>
+                Welcome to Neon City, an open-world
+                adventure where you are free to explore
+                a futuristic city.
+            </p>
+
+            <p>
+                Discover new locations, drive vehicles,
+                complete missions and create your own
+                adventure.
+            </p>
+
+            <p class="highlight-text">
+                YOUR CITY. YOUR RULES.
+            </p>
+        </div>
+    </div>
+
+
+    <!-- GAME CONTAINER -->
+    <div id="gameContainer" class="hidden">
+
+        <!-- THREE JS GAME WORLD -->
+        <div id="gameCanvas"></div>
+
+
+        <!-- TOP HUD -->
+        <div class="top-hud">
+
+            <div class="player-info">
+                <div class="player-avatar">
+                    NC
+                </div>
+
+                <div>
+                    <h3>PLAYER</h3>
+                    <p id="playerLevel">LEVEL 01</p>
+                </div>
+            </div>
+
+            <div class="city-info">
+                <h2>NEON CITY</h2>
+                <p id="gameTime">20:00</p>
+            </div>
+
+            <div class="money-info">
+                <span>CASH BALANCE</span>
+                <h2 id="playerMoney">$ 500</h2>
+            </div>
+
+        </div>
+
+
+        <!-- PLAYER STATUS -->
+        <div class="status-panel">
+
+            <div class="status-item">
+                <span>HEALTH</span>
+                <div class="status-bar">
+                    <div id="healthBar" class="health-fill"></div>
+                </div>
+                <strong id="healthValue">100%</strong>
+            </div>
+
+            <div class="status-item">
+                <span>STAMINA</span>
+                <div class="status-bar">
+                    <div id="staminaBar" class="stamina-fill"></div>
+                </div>
+                <strong id="staminaValue">100%</strong>
+            </div>
+
+        </div>
+
+
+        <!-- MINIMAP -->
+        <div class="minimap-container">
+
+            <div class="minimap-header">
+                <span>LOCATION</span>
+                <span id="locationName">DOWNTOWN</span>
+            </div>
+
+            <canvas id="minimap" width="200" height="200"></canvas>
+
+            <div class="map-footer">
+                <span>◉ YOUR POSITION</span>
+            </div>
+
+        </div>
+
+
+        <!-- MISSION PANEL -->
+        <div class="mission-panel">
+
+            <div class="mission-heading">
+                <span class="mission-dot"></span>
+                ACTIVE MISSION
+            </div>
+
+            <h3 id="missionTitle">WELCOME TO THE CITY</h3>
+
+            <p id="missionDescription">
+                Explore the city and discover your surroundings.
+            </p>
+
+            <div class="mission-reward">
+                REWARD: <strong>$ 250</strong>
+            </div>
+
+        </div>
+
+
+        <!-- INTERACTION MESSAGE -->
+        <div id="interactionMessage" class="interaction-message hidden">
+            PRESS E TO INTERACT
+        </div>
+
+
+        <!-- VEHICLE INFORMATION -->
+        <div id="vehicleHUD" class="vehicle-hud hidden">
+
+            <div class="vehicle-name">
+                CITY RUNNER
+            </div>
+
+            <div class="speed-container">
+                <span id="speedValue">000</span>
+                <small>KM/H</small>
+            </div>
+
+            <div class="vehicle-hint">
+                W - ACCELERATE | S - BRAKE
+            </div>
+
+        </div>
+
+
+        <!-- CROSSHAIR -->
+        <div id="crosshair" class="crosshair hidden">
+            +
+        </div>
+
+
+        <!-- NOTIFICATIONS -->
+        <div id="notification" class="notification hidden">
+            <span id="notificationText"></span>
+        </div>
+
+
+        <!-- PAUSE MENU -->
+        <div id="pauseMenu" class="pause-screen hidden">
+
+            <div class="pause-content">
+                <h1>GAME <span>PAUSED</span></h1>
+
+                <button id="resumeBtn" class="main-btn">
+                    RESUME GAME
+                </button>
+
+                <button id="restartBtn" class="menu-btn">
+                    RESTART GAME
+                </button>
+
+                <button id="mainMenuBtn" class="menu-btn">
+                    MAIN MENU
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- MOBILE CONTROLS -->
+        <div id="mobileControls" class="mobile-controls">
+
+            <div class="movement-controls">
+                <button data-key="w">▲</button>
+
+                <div class="movement-bottom">
+                    <button data-key="a">◀</button>
+                    <button data-key="s">▼</button>
+                    <button data-key="d">▶</button>
+                </div>
+            </div>
+
+            <div class="action-controls">
+                <button data-action="jump">JUMP</button>
+                <button data-action="run">RUN</button>
+                <button data-action="interact">E</button>
+            </div>
+
+        </div>
+
+
+        <!-- BOTTOM INFORMATION -->
+        <div class="bottom-hud">
+            <span>WASD - MOVE</span>
+            <span>SHIFT - RUN</span>
+            <span>SPACE - JUMP</span>
+            <span>E - INTERACT</span>
+            <span>ESC - PAUSE</span>
+        </div>
+
+    </div>
+
+
+    <!-- GAME OVER SCREEN -->
+    <div id="gameOverScreen" class="screen hidden">
+        <div class="game-over-content">
+            <h1>GAME OVER</h1>
+            <p>Your adventure has ended.</p>
+
+            <button id="playAgainBtn" class="main-btn">
+                PLAY AGAIN
+            </button>
+        </div>
+    </div>
+
+
+    <!-- JAVASCRIPT -->
+    <script type="module" src="script.js"></script>
+
+</body>
+</html>
